@@ -8,11 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
     lateinit var v: View
-    var ListaUsuarios: MutableList<usuarios> = mutableListOf()
+    val SharedViewModel : SharedViewModel by activityViewModels()
 
     companion object {
         fun newInstance() = RegisterFragment()
@@ -40,13 +41,13 @@ class RegisterFragment : Fragment() {
             val inputUsuario: String = registroUsuario.text.toString()
             val inputContraseña: String = registroContraseña.text.toString()
 
-            var userEncontrado: usuarios? = ListaUsuarios.find { u -> u.usuario == inputUsuario }
+            var userEncontrado: usuarios? = SharedViewModel.ListaUsuarios.find { u -> u.usuario == inputUsuario }
             var passEncontrada: usuarios? =
-                ListaUsuarios.find { u -> u.contraseña == inputContraseña }
+                SharedViewModel.ListaUsuarios.find { u -> u.contraseña == inputContraseña }
 
             if (!inputNombre.isEmpty() && !inputApellido.isEmpty() && !inputUsuario.isEmpty() && !inputContraseña.isEmpty()) {
                 if (userEncontrado == null && passEncontrada == null) {
-                    ListaUsuarios.add(
+                    SharedViewModel.ListaUsuarios.add(
                         usuarios(
                             inputNombre,
                             inputApellido,

@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 
 class LogInFragment : Fragment() {
     lateinit var v: View
-    var ListaUsuarios: MutableList<usuarios> = mutableListOf()
+    val SharedViewModel : SharedViewModel by activityViewModels()
 
 
     companion object {
@@ -29,24 +30,26 @@ class LogInFragment : Fragment() {
 
         v = inflater.inflate(R.layout.fragment_log_in, container, false)
 
+
+
         val botonRegister = v.findViewById<Button>(R.id.Registerboton)
         val botonLogIn = v.findViewById<Button>(R.id.botonLogin)
         val editUser = v.findViewById<EditText>(R.id.inputUser)
         val editPass = v.findViewById<EditText>(R.id.inputPass)
 
 
-        ListaUsuarios.add(usuarios("Agustín", "Scaffidi", "aguscaffidi", "agus1234"))
-        ListaUsuarios.add(usuarios("Manuel", "Ruderman", "manuruder", "manu1234"))
-        ListaUsuarios.add(usuarios("Ezequiel", "Rozenblum", "ezeroz", "eze1234"))
+        SharedViewModel.ListaUsuarios.add(usuarios("Agustín", "Scaffidi", "aguscaffidi", "agus1234"))
+        SharedViewModel.ListaUsuarios.add(usuarios("Manuel", "Ruderman", "manuruder", "manu1234"))
+        SharedViewModel.ListaUsuarios.add(usuarios("Ezequiel", "Rozenblum", "ezeroz", "eze1234"))
 
         botonLogIn.setOnClickListener {
 
             val inputUser: String = editUser.text.toString()
             val inputPass: String = editPass.text.toString()
 
-            var usuarioEncontrado: usuarios? = ListaUsuarios.find { u -> u.usuario == inputUser }
+            var usuarioEncontrado: usuarios? = SharedViewModel.ListaUsuarios.find { u -> u.usuario == inputUser }
             var contraseñaEncontrada: usuarios? =
-                ListaUsuarios.find { u -> u.contraseña == inputPass }
+                SharedViewModel.ListaUsuarios.find { u -> u.contraseña == inputPass }
 
             if (usuarioEncontrado != null && usuarioEncontrado.contraseña == inputPass) {
 
@@ -57,13 +60,15 @@ class LogInFragment : Fragment() {
             } else {
                 Snackbar.make(v, "Usuario o contraseña incorrectos", Snackbar.LENGTH_SHORT).show()
             }
-            botonRegister.setOnClickListener() {
-                findNavController().navigate(R.id.action_logInFragment_to_registerFragment)
-            }
+
 
 
         }
 
+        botonRegister.setOnClickListener() {
+            findNavController().navigate(R.id.action_logInFragment_to_registerFragment)
+
+        }
       return v  }
 
 }
