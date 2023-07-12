@@ -1,14 +1,13 @@
 package com.example.futbolappscaffidiruderman.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.futbolappscaffidiruderman.Futbol
 import com.example.futbolappscaffidiruderman.R
-import com.example.futbolappscaffidiruderman.SharedViewModel
 
-class futbolAdapter (val futbolLista : List<Futbol>): RecyclerView.Adapter<futbolViewHolder> (){
+class futbolAdapter(val futbolLista: List<Futbol>, requireContext: Context, param: (Any) -> Unit): RecyclerView.Adapter<futbolViewHolder> (){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): futbolViewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -19,6 +18,7 @@ class futbolAdapter (val futbolLista : List<Futbol>): RecyclerView.Adapter<futbo
 
             val item = futbolLista [position]
             holder.render(item)
+
 
     }
 
