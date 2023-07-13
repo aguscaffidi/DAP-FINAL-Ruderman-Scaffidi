@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.futbolappscaffidiruderman.Futbol
 import com.example.futbolappscaffidiruderman.R
 
-class futbolAdapter(val futbolLista: List<Futbol>, requireContext: Context, param: (Any) -> Unit): RecyclerView.Adapter<futbolViewHolder> (){
+class futbolAdapter(val futbolLista: List<Futbol>,private val onClickListener:(Futbol) -> Unit): RecyclerView.Adapter<futbolViewHolder> (){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): futbolViewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -17,7 +17,7 @@ class futbolAdapter(val futbolLista: List<Futbol>, requireContext: Context, para
     override fun onBindViewHolder(holder: futbolViewHolder, position: Int) {
 
             val item = futbolLista [position]
-            holder.render(item)
+            holder.render(item, onClickListener)
 
 
     }

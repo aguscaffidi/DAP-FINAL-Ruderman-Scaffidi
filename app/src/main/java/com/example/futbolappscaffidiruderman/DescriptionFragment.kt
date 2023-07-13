@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,9 +44,12 @@ class DescriptionFragment : Fragment() {
 
         val titulo = v.findViewById<TextView>(R.id.tituloEquipo)
         val descripcion = v.findViewById<TextView>(R.id.descripcionEquipo)
+        val imagen = v.findViewById<ImageView>(R.id.imagenClub)
 
-        titulo.text = SharedViewModel.clubesList.toString()
-        descripcion.text = SharedViewModel.clubesList.toString()
+        Glide.with(imagen.context).load(SharedViewModel.itemSelected.foto).into(imagen)
+        titulo.text = SharedViewModel.itemSelected.equipo
+        descripcion.text = SharedViewModel.itemSelected.descripcion
+
        return v
     }
 

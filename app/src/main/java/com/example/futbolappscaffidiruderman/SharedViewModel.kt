@@ -6,5 +6,5 @@ class SharedViewModel: ViewModel() {
 
     var ListaUsuarios: MutableList<usuarios> = mutableListOf()
     var clubesList= listOf<Futbol>()
-
+    lateinit var itemSelected: Futbol
 }

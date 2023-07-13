@@ -19,17 +19,19 @@ class futbolViewHolder(view:View) : RecyclerView.ViewHolder (view) {
     val paisFutbol = view.findViewById<TextView>(R.id.tvFutbolPais)
     val fotoFutbol = view.findViewById<ImageView>(R.id.ivFutbol)
 
-    fun render(futbolModel: Futbol){
+    fun render(futbolModel: Futbol, onClickListener:(Futbol) -> Unit){
 
         clubFutbol.text = futbolModel.equipo
         ligaFutbol.text = futbolModel.liga
         paisFutbol.text = futbolModel.pais
         Glide.with(fotoFutbol.context).load(futbolModel.foto).into(fotoFutbol)
-
-        itemView.setOnClickListener {
-
-            Snackbar.make(clubFutbol, futbolModel.descripcion, Snackbar.LENGTH_LONG).show()
-        }
+        itemView.setOnClickListener {onClickListener(futbolModel)}
 
     }
 }
+
+
+
+
+
+
